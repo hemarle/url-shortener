@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQrcode } from '@fortawesome/free-solid-svg-icons';
 
-const Linkly = () => {
+const Linkly: React.FC = () => {
   const handleLoginClick = () => {
     // Implement login functionality
   };
