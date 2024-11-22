@@ -84,6 +84,9 @@ const URLLink: React.FC = () => {
               <img src="/images/56371cbfa043e97af457cb28311f2e9f6e17517d.png" alt="Icon" className="w-8 h-8 mr-2 rounded" />
               <span className="text-sm text-gray-400">{entry.originalLink}</span>
             </div>
+            <div className="flex items-center justify-center">
+              <img src="/images/33ed458b52da413bf7673fbae6329edde3a26409.png" alt="QR Code" className="w-8 h-8" />
+            </div>
             <span className="text-sm text-gray-400 text-center">{entry.clicks}</span>
             <span className={`text-sm ${entry.statusColor} text-center`}>{entry.status}</span>
             <span className="text-sm text-gray-400 text-center">{entry.date}</span>
