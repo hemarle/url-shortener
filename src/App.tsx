@@ -9,6 +9,7 @@ import Login from './pages/auth/Login';
 import { Route, Routes } from 'react-router';
 import Layout from './components/Layout';
 import LandingPage from './pages/LandingPage';
+import Logout from './pages/auth/Logout';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path='/dashboard' element={<Linkly/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path='/logout' element={<Logout/>} />
       </Routes>
    
       </Layout>
