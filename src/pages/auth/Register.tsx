@@ -1,23 +1,16 @@
 import { Field, Form, Formik } from 'formik'
 import React from 'react'
-import { useRegister } from '../../hooks/api/auth/useAuth'
+import { useLogin, useRegister } from '../../hooks/api/auth/useAuth'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router'
+import Cookies from 'js-cookie'
 
 function Register() {
   const registerAPI= useRegister()
+  const loginAPI= useLogin()
+  const navigate= useNavigate()
   return (
-    <div className="bg-gray-900 min-h-screen   p-8">
- 
- <div className="relative w-full max-w-7xl mx-auto">
- 
- <div className="flex justify-between items-center py-4 px-6">
-   <div className="text-white text-3xl">Linkly</div>
-   <div className="flex space-x-4">
-     <button className="bg-gray-800 text-gray-400 border border-gray-700 rounded-full px-6 py-2 shadow-md">Login</button>
-     <button className="bg-blue-600 text-white rounded-full px-6 py-2 shadow-md">Register Now</button>
-   </div>
- </div>
- </div>
+   <div>
 
 {/* Form */}
 
@@ -32,10 +25,21 @@ onSubmit={(values)=>{
 registerAPI.mutate({
 ...values
 }, {
-onSuccess(data){
-console.log({data})
+onSuccess(registerResponse){
+
 toast.dismiss()
-toast.success(`Account Created Successfully`)
+// toast.success(`Account Created Successfully`)
+loginAPI.mutate({
+  email:values.email, password:values.password
+},{
+  onSuccess(loginResponse){
+
+    toast.dismiss()
+    toast.success(`Account Created Successfully`)
+    Cookies.set("access", loginResponse.token )
+    navigate("/dashboard")
+  }
+})
 },
 onError(err:any){
   console.log({err})
@@ -49,18 +53,18 @@ toast.error(err?.response?.data?.error)
     <Form className='p-6 grid grid-cols-1  gap-4 w-full max-w-xl'>
 <div className="w-full col-span-3">
   <p className='text-white'>Name:</p>
-    <Field name="name" className="input input-bordered w-full"/>
+    <Field name="name" className="input input-bordered w-full" required/>
 </div>
 <div className="w-full col-span-3">
   <p className='text-white'>Email:</p>
-    <Field name="email" type="email" className="input input-bordered w-full"/>
+    <Field name="email" type="email" className="input input-bordered w-full" required/>
 </div>
 <div className="w-full col-span-3">
   <p className='text-white'>Password:</p>
-    <Field name="password" type="password" className="input input-bordered w-full"/>
+    <Field name="password" type="password" className="input input-bordered w-full"  required/>
 </div>
 <div className="flex justify-center">
-  <button className="btn">Register</button>
+  <button className="btn" disabled={loginAPI.isLoading || registerAPI.isLoading}>Register</button>
 </div>
 
     </Form>

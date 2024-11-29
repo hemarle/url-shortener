@@ -1,23 +1,14 @@
 import { useLogin} from '../../hooks/api/auth/useAuth'
 import { Field, Form, Formik } from 'formik'
 import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
 
 function Login() {
   const loginAPI= useLogin()
+  const navigate= useNavigate()
   return (
-    <div className="bg-gray-900 min-h-screen   p-8">
- 
- <div className="relative w-full max-w-7xl mx-auto">
- 
- <div className="flex justify-between items-center py-4 px-6">
-   <div className="text-white text-3xl">Linkly</div>
-   <div className="flex space-x-4">
-     <button className="bg-gray-800 text-gray-400 border border-gray-700 rounded-full px-6 py-2 shadow-md">Login</button>
-     <button className="bg-blue-600 text-white rounded-full px-6 py-2 shadow-md">Login Now</button>
-   </div>
- </div>
- </div>
+    <div className="">
 
 {/* Form */}
 
@@ -36,6 +27,8 @@ onSuccess(data){
 Cookies.set("access", data?.token)
 toast.dismiss()
 toast.success(`Login Successfully`)
+navigate("/dashboard")
+
 
 },
 onError(err:any){
@@ -54,14 +47,14 @@ toast.error(err?.response?.data?.error)
 </div> */}
 <div className="w-full col-span-3">
   <p className='text-white'>Email:</p>
-    <Field name="email" type="email" className="input input-bordered w-full"/>
+    <Field name="email" type="email" className="input input-bordered w-full" required/>
 </div>
 <div className="w-full col-span-3">
   <p className='text-white'>Password:</p>
-    <Field name="password" type="password" className="input input-bordered w-full"/>
+    <Field name="password" type="password" className="input input-bordered w-full" required/>
 </div>
 <div className="flex justify-center">
-  <button className="btn">Login</button>
+  <button className="btn" disabled={loginAPI.isLoading}>Login</button>
 </div>
 
     </Form>

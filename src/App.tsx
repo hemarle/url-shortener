@@ -6,14 +6,24 @@ import Register from './pages/auth/Register';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './pages/auth/Login';
+import { Route, Routes } from 'react-router';
+import Layout from './components/Layout';
+import LandingPage from './pages/LandingPage';
 
 
 function App() {
   return (
     <div className="">
+      <Layout>
       {/* <Linkly/> */}
-      <Register />
-      <Login/>
+      <Routes>
+        <Route path='/' element={<LandingPage/>} />
+        <Route path='/dashboard' element={<Linkly/>} />
+        <Route path="/register" element={<Register/>} />
+        <Route path="/login" element={<Login/>} />
+      </Routes>
+   
+      </Layout>
       <ToastContainer/>
     </div>
   );
